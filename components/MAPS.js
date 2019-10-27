@@ -7,7 +7,17 @@ class MAPS extends React.Component {
     render() {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <MapView style={styles.mapStyle} />
+          <MapView style={styles.mapStyle} 
+            region={this.props.coordinate}
+            showsUserLocation={true}
+            initialRegion={{
+              latitude:45.468998,
+              longitude:-73.737830,
+              latitudeDelta:1,
+              longitudeDelta:1
+            }}
+          >
+          </MapView>
         </View>
       );
     }  

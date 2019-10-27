@@ -44,6 +44,7 @@ class HomeScreen extends React.Component {
         </View>
 
             <Text style={{fontSize: 8, paddingTop: 30}}>By : Alexandre Ratthé</Text>
+            <Text style={{fontSize: 8, paddingTop: 1, paddingLeft: 8}}>     Brian McWilliams</Text>
     </View>
     );
   }  

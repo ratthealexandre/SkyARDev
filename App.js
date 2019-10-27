@@ -1,5 +1,6 @@
 //Program de NOTAM pour l'aviation 
 //Alexandre Ratthé
+//Brian McWilliams
 
 //Importation de bibliothèque
 import * as React from 'react';
