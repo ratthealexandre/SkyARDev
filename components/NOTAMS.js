@@ -1,25 +1,93 @@
-import React from 'react';
-import {View, Text,FlatList} from 'react-native';
-import notamsdata from '../Helpers/notamsdata';
-import { colors } from 'react-native-elements';
+import React, {Component} from 'react';
+import {ActivityIndicator, View, Text, FlatList, StyleSheet, ListView, Alert, Platform} from 'react-native';
 
 //Page Notice to Airmets (NOTAMs)
 class NOTAMS extends React.Component {
-    render() {
-        return (
-            <View style={{flex: 1, marginLeft:25, marginTop:50 }}>
-              <Text>NOTAMS</Text>
 
-              <FlatList
-                data={notamsdata}
-                ItemSeparatorComponent={this.FlatListItemSeparator}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <Text style={{color:'red'}}>{item.id}{'\n'}<Text style={{color:'black'}}>{item.title}{'\n'}</Text></Text>}
-                />
+constructor(props){
+    super(props);
+    this.state = {
+      isLoading: true,
+    }
+}
 
-            </View>
-          );
-    }  
+componentDidMount(){
+    return (fetch('http://192.168.2.10:80/notam_site/NotamList.php')
+    .then((response) => response.json())
+    .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        }, function(){
+            //Faire de quoi avec le nouvel état
+        });
+    })
+    .catch((error) => {
+        console.error(error);
+    }));
+}
+
+FlatListItemSeparator = () => {
+    return (
+    <View
+        style={{
+        height: 1,
+        width: "100%",
+        backgroundColor: "#000",
+        }}
+    />
+    );
+}
+
+GetFlatListItem (notamid) {
+  Alert.alert(notamid);
+}
+
+render() {
+    if (this.state.isLoading) {
+      return (
+          <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+          <Text>Still loading</Text>
+          </View>
+      );
+    }
+
+    return (
+        <View style={styles.MainContainer}>
+            <FlatList
+              data={this.state.dataSource}
+              ItemSeparatorComponent = {this.FlatListItemSeparator}
+              renderItem={({item}) => <Text style={styles.FlatListItemStyle} onPress={this.GetFlatListItem.bind(this, item.contenu)} > {item.contenu}</Text>}
+              keyExtractor={(item, index) => index}
+            />
+        </View>
+    
+    );
+}
+}
+
+  const styles = StyleSheet.create({
+
+  MainContainer :{
+  justifyContent: 'center',
+  flex:1,
+  margin: 10
+
+  },
+
+  FlatListItemStyle: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+
+  rowViewContainer: {
+  fontSize: 20,
+  paddingRight: 10,
+  paddingTop: 10,
+  paddingBottom: 10,
   }
 
+});
   export default NOTAMS

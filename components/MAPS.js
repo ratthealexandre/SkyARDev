@@ -37,8 +37,3 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
 });
-
-//<Image
-//style={{width: 200, height: 200, marginBottom: 30}}
-//source={{uri: 'https://www.iFlightPlanner.com/AviationCharts/?Map=sectional&GS=115&Route='}}
-//>
