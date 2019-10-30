@@ -39,8 +39,8 @@ FlatListItemSeparator = () => {
     );
 }
 
-GetFlatListItem (notamid) {
-  Alert.alert(notamid);
+GetFlatListItem (postId) {
+  Alert.alert(postId);
 }
 
 render() {
@@ -58,8 +58,8 @@ render() {
             <FlatList
               data={this.state.dataSource}
               ItemSeparatorComponent = {this.FlatListItemSeparator}
-              renderItem={({item}) => <Text style={styles.FlatListItemStyle} onPress={this.GetFlatListItem.bind(this, item.contenu)} > {item.contenu}</Text>}
-              keyExtractor={(item, index) => index}
+              renderItem={({item}) => <Text style={styles.FlatListItemStyle} onPress={this.GetFlatListItem.bind(this, item.postId)} > {item.name}</Text>}
+              keyExtractor={(item, index) => index.toString()}
             />
         </View>
     
@@ -77,9 +77,9 @@ render() {
   },
 
   FlatListItemStyle: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    padding: 5,
+    fontSize: 12,
+    height: 30,
   },
 
   rowViewContainer: {
